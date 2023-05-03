@@ -4,6 +4,7 @@
 #include <stdbool.h>
 
 #include "io.h"
+#include "our_grep.h"
 
 void flags_print(int flags[]){
     printf("[");
