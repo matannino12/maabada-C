@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <assert.h>
 
 #include "io.h"
 
@@ -42,6 +43,16 @@ int arg_checker(char *argv[], int i){
     return -1;
 }
 
+char *lower(char *str1){
+    int str_len = strlen(str1);
+    for(int i = 0; i<str_len; i++){
+        if((str1[i] >= 'A')&&(str1[i] <= 'Z')){
+            str1[i]+= 'a'-'A';
+        }
+    }
+    return str1;
+}
+
 input Cmd_parser(int argc, char *argv[]){
     input input1;
     char *expression = NULL;
@@ -49,7 +60,6 @@ input Cmd_parser(int argc, char *argv[]){
     for(int i = 0; i < 8; i++){
         input1.flags[i] = 0;
     }
-
     for(int i = 0; i < argc; i++){
         if(strcmp(argv[i], "-A") == 0){
             int a_num = atoi(argv[i+1]);
@@ -68,8 +78,10 @@ input Cmd_parser(int argc, char *argv[]){
     if(expression == NULL){
         expression = argv[1];
     }
+    if(input1.flags[3] == 1){
+        expression = lower(expression);
+    }
     input1.expression = expression;
-
     // How do we handle filename not in argv?
     char *filename = argv[argc-1];
     input1.filename = filename;
