@@ -7,14 +7,12 @@
 #include <stdbool.h>
 
 #include "io.h"
-#include "our_grep.h"
 
-typedef struct Line_Node {
+typedef struct line_node {  
     int num;
-    struct Line_Node *next;
-} Line;
+    struct line_node *next;
+} line;
 
-FILE *file_opener(Input input1);
-void master_grep(Input input1);
+void master_grep(input input1);
 
 #endif
