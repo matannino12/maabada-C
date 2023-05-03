@@ -89,10 +89,11 @@ int main(int argc, char*argv[])
     }
     else
     {
-        FILE *file = NULL;
-        file = fopen(argv[2], "r");
+        FILE *fp = NULL;
+        fp = fopen(argv[2], "r");
+        
 
-        if (file == NULL)
+        if (fp == NULL)
         {
             printf("myGrep: Unable to open file: %s\n", argv[2]);
             return 2;

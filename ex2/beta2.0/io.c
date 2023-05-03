@@ -4,7 +4,6 @@
 #include <stdbool.h>
 
 #include "io.h"
-#include "our_grep.h"
 
 void flags_print(int flags[]){
     printf("[");
@@ -15,7 +14,7 @@ void flags_print(int flags[]){
     printf("\n");
 }
 
-void input_print(Input input1){
+void input_print(input input1){
     flags_print(input1.flags);
     printf("%s\n", input1.expression);
     printf("%s\n", input1.filename);
@@ -43,8 +42,8 @@ int arg_checker(char *argv[], int i){
     return -1;
 }
 
-Input Cmd_parser(int argc, char *argv[]){
-    Input input1;
+input Cmd_parser(int argc, char *argv[]){
+    input input1;
     char *expression = NULL;
     int j;
     for(int i = 0; i < 8; i++){

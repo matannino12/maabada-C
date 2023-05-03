@@ -6,20 +6,20 @@
 #include "io.h"
 #include "our_grep.h"
 
-FILE *file_opener(Input input1){
-    char *filename = input1.filename;
-    FILE *fp = fopen(*filename, "r");
+void master_grep(input input1){
+    FILE *fp = fopen(input1.filename, "r");
     if (fp == NULL){
-        printf("Error opening file %s\n", filename);
-        return NULL;
-    }
-    return fp;
-}
-
-void master_grep(Input input1){
-    if(file_opener(input1) == NULL){
+        printf("Error opening file %s\n", input1.filename);
         return;
     }
-    // להמשיך עם בטא 1
-
+    char *line = NULL;
+    size_t len = 0;
+    while (getline(&line, &len, fp) != -1){    
+        if (strstr(line, input1.expression) != NULL){
+            printf("%s", line);
+        }
+    }
+    fclose(fp);
+    free(line);
+    return;
 }
