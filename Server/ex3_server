@@ -1,0 +1,36 @@
+#!/usr/bin/python2.7 -tt
+import socket
+import sys
+
+
+def main():
+    port = int(sys.argv[1])
+    ip = "127.0.0.1"
+    sock = socket.socket()
+    try:
+        sock.connect((ip, port))
+        counter = 0
+        while True:
+            fullData = ""
+            while True:
+                fullData += sock.recv(1024)
+                if fullData == b'':
+                    return
+                if fullData.count("\r\n\r\n") == 1:
+                    break
+            requestPath = fullData.split(' ')[1]
+
+            if requestPath == "/counter":
+                counter += 1
+                returnMessage = 'HTTP/1.0 200 OK\r\nContent-Type: text/html\r\nContent-Length: %d\r\n\r\n%d\r\n\r\n' % (
+                len(str(counter)), counter)
+            else:
+                returnMessage = 'HTTP/1.1 404 Not Found\r\nContent-type: text/html\r\nContent-length: 113\r\n\r\n<html><head><title>Not Found</title></head><body>\r\nSorry, the object you requested was not found.\r\n</body></html>\r\n\r\n'
+            sock.send(returnMessage.encode())
+    except Exception as e:
+        sock.close()
+        raise e
+
+
+if __name__ == '__main__':
+    main()

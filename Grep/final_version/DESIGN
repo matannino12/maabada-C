@@ -1,0 +1,5 @@
+match contains: *Match* structure which holds the logic if is have to be print and count the num .
+
+reader contains: *Reader* structure check filename is not NULL, o.w stdin,count on the bytes and lines read, getting a pointer to the sturcture and freeing.
+
+input_grep contains: *Input* a structure which holds the inputs of the program, the filename,expression and bool of flags.
